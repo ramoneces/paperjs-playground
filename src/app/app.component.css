@@ -1,0 +1,14 @@
+main {
+  padding: 1rem;
+}
+
+#app-container {
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+}
+
+main {
+  flex-grow: 1;
+  overflow: hidden;
+}
