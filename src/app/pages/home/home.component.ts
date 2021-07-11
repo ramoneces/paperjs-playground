@@ -21,6 +21,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.project = new paper.Project(this.stage.nativeElement);
+    const layer1 = this.project.addLayer(new paper.Layer());
+    const layer2 = this.project.addLayer(new paper.Layer());
+
+    layer2.activate();
 
     const twoPintPath = new paper.Path();
     twoPintPath.strokeColor = new paper.Color('green');
@@ -36,6 +40,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
     });
     autoCenteringCircle.fullySelected = true;
     this.project.view.onResize = () => {
+      //constant height
+      this.project.view.viewSize.height = 500;
       autoCenteringCircle.position = this.project.view.center;
     };
 
@@ -45,6 +51,35 @@ export class HomeComponent implements OnInit, AfterViewInit {
     rectangle.fillColor = new paper.Color('white');
 
     const p3 = new paper.Point(1, 1).subtract(new paper.Point(1, 1));
+
+    // The brush applies to the lower layer
+    const brush = new paper.Tool();
+    brush.onMouseUp = (event: paper.ToolEvent) => {
+      const textStart = new paper.PointText({
+        point: event.downPoint,
+        justification: 'center',
+        fontSize: 10,
+        fillColor: 'white',
+      });
+      textStart.content = `(${event.downPoint.x},${event.downPoint.y})`;
+      const textend = new paper.PointText({
+        point: event.point,
+        justification: 'center',
+        fontSize: 10,
+        fillColor: 'white',
+      });
+      console.log('intersects', textStart.bounds.intersects(textend.bounds));
+      textend.content = `(${event.point.x},${event.point.y})`;
+    };
+    brush.onMouseDrag = (event: paper.ToolEvent) => {
+      layer1.activate();
+      const circle = new paper.Path.Circle({
+        center: event.middlePoint,
+        radius: event.delta.length / 2,
+        fillColor: 'yellow',
+      });
+    };
+    brush.activate();
   }
 
   ngOnInit(): void {}
