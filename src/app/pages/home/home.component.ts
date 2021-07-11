@@ -20,66 +20,81 @@ export class HomeComponent implements OnInit, AfterViewInit {
   constructor() {}
 
   ngAfterViewInit(): void {
-    this.project = new paper.Project(this.stage.nativeElement);
-    const layer1 = this.project.addLayer(new paper.Layer());
-    const layer2 = this.project.addLayer(new paper.Layer());
+    const project = new paper.Project(this.stage.nativeElement);
+    this.project = project;
+    project.activate();
+    const layer1 = new paper.Layer();
+    layer1.activate();
 
-    layer2.activate();
-
-    const twoPintPath = new paper.Path();
-    twoPintPath.strokeColor = new paper.Color('green');
-    const start = new paper.Point(100, 100);
-    twoPintPath.moveTo(start);
-    twoPintPath.lineTo(start.project(new paper.Point(100, -50)));
-
-    const autoCenteringCircle = new paper.Path.Circle({
-      center: this.project.view.center,
-      radius: 30,
-      strokeColor: 'white',
-      fillColor: 'black',
+    const star = new paper.Path.Star(new paper.Point(0, 0), 7, 10, 5);
+    star.style = new paper.Style({
+      fillColor: new paper.Color('white'),
     });
-    autoCenteringCircle.fullySelected = true;
-    this.project.view.onResize = () => {
-      //constant height
-      this.project.view.viewSize.height = 500;
-      autoCenteringCircle.position = this.project.view.center;
-    };
+    const starSymbol = new paper.SymbolDefinition(star);
 
-    const rectangle = new paper.Path.Rectangle(
-      new paper.Rectangle(100, 100, 100, 100)
-    );
-    rectangle.fillColor = new paper.Color('white');
+    const numberOfStars = 100;
+    const stars: paper.SymbolItem[] = [];
+    for (let index = 0; index < numberOfStars; index++) {
+      const placedStar = starSymbol.place(
+        paper.Point.random().multiply(project.view.bounds.bottomRight)
+      );
+      const scale = index / numberOfStars;
+      placedStar.scale(scale);
+      placedStar.rotate(Math.random() * 360);
+      placedStar.data.scale = scale;
+      placedStar.data.id = index + 1;
+      placedStar.opacity = scale;
 
-    const p3 = new paper.Point(1, 1).subtract(new paper.Point(1, 1));
+      stars.push(placedStar);
+    }
 
-    // The brush applies to the lower layer
-    const brush = new paper.Tool();
-    brush.onMouseUp = (event: paper.ToolEvent) => {
-      const textStart = new paper.PointText({
-        point: event.downPoint,
-        justification: 'center',
-        fontSize: 10,
-        fillColor: 'white',
+    const mouseTool = new paper.Tool();
+    mouseTool.activate();
+
+    const nameArrow = new paper.Path([
+      new paper.Point(0, 0),
+      new paper.Point(15, -15),
+    ]);
+    nameArrow.strokeColor = new paper.Color('white');
+    const nameText = new paper.PointText({
+      point: new paper.Point(15, -15),
+      justification: 'center',
+      fontSize: 10,
+      fillColor: 'white',
+    });
+    const tag = new paper.Group([nameArrow, nameText]);
+    tag.pivot = new paper.Point(0, 0);
+    tag.opacity = 0;
+    let hoveredStar: paper.SymbolItem | undefined;
+    mouseTool.onMouseMove = (event: paper.ToolEvent) => {
+      stars.forEach((star) => {
+        event.delta &&
+          star.translate(event.delta.multiply(-1 * star.data.scale));
+        if (star.position.x < 0)
+          star.position.x = project.view.size.width + star.position.x;
+        else if (star.position.x > project.view.size.width)
+          star.position.x = star.position.x - project.view.size.width;
+        if (star.position.y < 0)
+          star.position.y = project.view.size.height + star.position.y;
+        else if (star.position.y > project.view.size.height)
+          star.position.y = star.position.y - project.view.size.height;
+
+        if (star.hitTest(event.point)) {
+          hoveredStar = star;
+        }
       });
-      textStart.content = `(${event.downPoint.x},${event.downPoint.y})`;
-      const textend = new paper.PointText({
-        point: event.point,
-        justification: 'center',
-        fontSize: 10,
-        fillColor: 'white',
-      });
-      console.log('intersects', textStart.bounds.intersects(textend.bounds));
-      textend.content = `(${event.point.x},${event.point.y})`;
+      if (hoveredStar) {
+        hoveredStar.style = new paper.Style({
+          strokeColor: new paper.Color('red'),
+        });
+        tag.position = hoveredStar.position;
+
+        nameText.content = `${hoveredStar.data.id}`;
+        tag.opacity = 1;
+      } else {
+        // tag.opacity = 0;
+      }
     };
-    brush.onMouseDrag = (event: paper.ToolEvent) => {
-      layer1.activate();
-      const circle = new paper.Path.Circle({
-        center: event.middlePoint,
-        radius: event.delta.length / 2,
-        fillColor: 'yellow',
-      });
-    };
-    brush.activate();
   }
 
   ngOnInit(): void {}
