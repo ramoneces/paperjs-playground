@@ -1,7 +1,7 @@
 <div id="app-container">
-  <nav>
+  <header>
     <mat-toolbar color="primary">
-      <button mat-icon-button>
+      <button mat-icon-button (click)="isShowingMenu = !isShowingMenu">
         <mat-icon>menu</mat-icon>
       </button>
       <span>Ng Application</span>
@@ -13,8 +13,23 @@
         <mat-icon>share</mat-icon>
       </button>
     </mat-toolbar>
-  </nav>
-  <main>
-    <router-outlet></router-outlet>
-  </main>
+  </header>
+  <mat-drawer-container autosize>
+    <mat-drawer mode="over" hasBackdrop="false" [(opened)]="isShowingMenu">
+      <mat-selection-list
+        #pages
+        [multiple]="false"
+        (selectionChange)="navigate(pages.selectedOptions.selected[0]?.value)"
+      >
+        <mat-list-option value="home" selected="true"> Home </mat-list-option
+        ><mat-list-option value="draft"> Draft </mat-list-option
+        ><mat-list-option value="tiktok"> TikTok </mat-list-option>
+      </mat-selection-list>
+    </mat-drawer>
+
+    <mat-drawer-content>
+      <main>
+        <router-outlet></router-outlet></main
+    ></mat-drawer-content>
+  </mat-drawer-container>
 </div>

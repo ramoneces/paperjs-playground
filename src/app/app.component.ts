@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'paperjs-playground';
+  isShowingMenu = false;
+
+  constructor(private router: Router) {}
+  navigate(slug: string) {
+    this.router.navigate([slug]);
+    this.isShowingMenu = false;
+  }
 }
