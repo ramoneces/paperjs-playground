@@ -15,13 +15,11 @@ import * as paper from 'paper';
 export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('stage')
   private stage!: ElementRef;
-  private project!: paper.Project;
 
   constructor() {}
 
   ngAfterViewInit(): void {
     const project = new paper.Project(this.stage.nativeElement);
-    this.project = project;
     project.activate();
     const layer1 = new paper.Layer();
     layer1.activate();

@@ -1,1 +1,21 @@
-<p>tiktok works!</p>
+<div id="container">
+  <div id="file-picker">
+    <span>{{ fileName }}</span> &nbsp;
+    <button
+      type="button"
+      mat-raised-button
+      (click)="fileInput.click()"
+      mat-icon-button
+    >
+      <mat-icon>description</mat-icon>
+    </button>
+    <input
+      hidden
+      (change)="onFileSelected()"
+      #fileInput
+      type="file"
+      id="file"
+    />
+  </div>
+  <canvas #stage resize></canvas>
+</div>
