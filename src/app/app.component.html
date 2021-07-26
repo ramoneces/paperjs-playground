@@ -4,7 +4,7 @@
       <button mat-icon-button (click)="isShowingMenu = !isShowingMenu">
         <mat-icon>menu</mat-icon>
       </button>
-      <span>Paper.js playground</span>
+      <span>{{ title }}</span>
       <span class="example-spacer"></span>
       <button mat-icon-button>
         <mat-icon>favorite</mat-icon>
@@ -21,9 +21,12 @@
         [multiple]="false"
         (selectionChange)="navigate(pages.selectedOptions.selected[0]?.value)"
       >
-        <mat-list-option value="home" selected="true"> Home </mat-list-option
-        ><mat-list-option value="draft"> Draft </mat-list-option
-        ><mat-list-option value="tiktok"> TikTok </mat-list-option>
+        <mat-list-option value="stars" selected="true"> Stars </mat-list-option>
+        <mat-list-option value="flat-earth"> Flat Earth </mat-list-option>
+        <mat-list-option value="drafts"> Drafts </mat-list-option>
+        <mat-list-option value="tiktok-timeline">
+          Tiktok timeline
+        </mat-list-option>
       </mat-selection-list>
     </mat-drawer>
 

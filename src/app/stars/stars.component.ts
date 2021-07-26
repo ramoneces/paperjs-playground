@@ -1,18 +1,12 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import * as paper from 'paper';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  selector: 'app-stars',
+  templateUrl: './stars.component.html',
+  styleUrls: ['./stars.component.scss'],
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class StarsComponent implements AfterViewInit {
   @ViewChild('stage')
   private stage!: ElementRef;
 
@@ -94,6 +88,4 @@ export class HomeComponent implements OnInit, AfterViewInit {
       }
     };
   }
-
-  ngOnInit(): void {}
 }

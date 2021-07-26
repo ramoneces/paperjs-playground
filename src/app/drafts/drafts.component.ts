@@ -1,19 +1,13 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import * as paper from 'paper';
 
 @Component({
-  selector: 'app-draft',
-  templateUrl: './draft.component.html',
-  styleUrls: ['./draft.component.css'],
+  selector: 'app-drafts',
+  templateUrl: './drafts.component.html',
+  styleUrls: ['./drafts.component.scss'],
 })
-export class DraftComponent implements OnInit, AfterViewInit {
-  @ViewChild('stage')
+export class DraftsComponent implements AfterViewInit {
+  @ViewChild('draft_stage')
   private stage!: ElementRef;
   private project!: paper.Project;
 
@@ -55,6 +49,7 @@ export class DraftComponent implements OnInit, AfterViewInit {
 
     // The brush applies to the lower layer
     const brush = new paper.Tool();
+    brush.activate();
     brush.onMouseUp = (event: paper.ToolEvent) => {
       const textStart = new paper.PointText({
         point: event.downPoint,
@@ -80,8 +75,5 @@ export class DraftComponent implements OnInit, AfterViewInit {
         fillColor: 'yellow',
       });
     };
-    brush.activate();
   }
-
-  ngOnInit(): void {}
 }

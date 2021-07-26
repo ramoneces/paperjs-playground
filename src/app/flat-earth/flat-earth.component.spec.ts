@@ -1,20 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TiktokComponent } from './tiktok.component';
+import { FlatEarthComponent } from './flat-earth.component';
 
-describe('TiktokComponent', () => {
-  let component: TiktokComponent;
-  let fixture: ComponentFixture<TiktokComponent>;
+describe('GamePageComponent', () => {
+  let component: FlatEarthComponent;
+  let fixture: ComponentFixture<FlatEarthComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TiktokComponent ]
-    })
-    .compileComponents();
+      declarations: [FlatEarthComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TiktokComponent);
+    fixture = TestBed.createComponent(FlatEarthComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

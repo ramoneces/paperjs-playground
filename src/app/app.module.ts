@@ -1,29 +1,39 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppRoutingModule } from './app-routing.module';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-
-import { HomeComponent } from './pages/home/home.component';
-import { DraftComponent } from './pages/draft/draft.component';
-import { TiktokComponent } from './pages/tiktok/tiktok.component';
+import { FlatEarthComponent } from './flat-earth/flat-earth.component';
+import { StarsComponent } from './stars/stars.component';
+import { DraftsComponent } from './drafts/drafts.component';
+import { TiktokTimelineComponent } from './tiktok-timeline/tiktok-timeline.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, DraftComponent, TiktokComponent],
+  declarations: [AppComponent, FlatEarthComponent, StarsComponent, DraftsComponent, TiktokTimelineComponent],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatSlideToggleModule,
+    MatTableModule,
+    MatButtonToggleModule,
     MatSidenavModule,
     MatListModule,
   ],

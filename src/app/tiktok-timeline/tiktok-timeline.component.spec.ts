@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HomeComponent } from './home.component';
+import { TiktokTimelineComponent } from './tiktok-timeline.component';
 
-describe('HomeComponent', () => {
-  let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
+describe('TiktokTimelineComponent', () => {
+  let component: TiktokTimelineComponent;
+  let fixture: ComponentFixture<TiktokTimelineComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HomeComponent ]
+      declarations: [ TiktokTimelineComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HomeComponent);
+    fixture = TestBed.createComponent(TiktokTimelineComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

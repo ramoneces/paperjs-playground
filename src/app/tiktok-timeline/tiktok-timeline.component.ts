@@ -1,21 +1,15 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import { Point } from 'paper/dist/paper-core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import * as paper from 'paper';
 
 @Component({
-  selector: 'app-tiktok',
-  templateUrl: './tiktok.component.html',
-  styleUrls: ['./tiktok.component.css'],
+  selector: 'app-tiktok-timeline',
+  templateUrl: './tiktok-timeline.component.html',
+  styleUrls: ['./tiktok-timeline.component.scss'],
 })
-export class TiktokComponent implements AfterViewInit {
+export class TiktokTimelineComponent implements AfterViewInit {
   data: any;
   fileName: string = 'choose a file';
-  @ViewChild('stage')
+  @ViewChild('canvas')
   private stage!: ElementRef;
   project!: paper.Project;
   timelineStops!: paper.Group;
